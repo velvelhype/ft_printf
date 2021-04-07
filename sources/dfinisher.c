@@ -8,11 +8,8 @@ char* copy_str_maker(int countpre, struct flags flags, int stringsize, char *str
 			return (NULL);
 		copy_string[flags.prec + 1] = '\0';
 		countpre++;
-		while (countpre > 0)
-		{
+		while (--countpre)
 			copy_string[countpre - 1] = '0';
-			countpre--;
-		}
 		strcpy(&copy_string[flags.prec - stringsize + 2], string + 1);
 		*copy_string = '-';
 	}
@@ -21,11 +18,8 @@ char* copy_str_maker(int countpre, struct flags flags, int stringsize, char *str
 		if (!(copy_string = (char*)malloc(sizeof(char) * flags.prec + 1)))
 			return (NULL);
 		copy_string[flags.prec] = '\0';
-		while (countpre > 0)
-		{
+		while (--countpre)
 			copy_string[countpre - 1] = '0';
-			countpre--;
-		}
 		strcpy(&copy_string[flags.prec - stringsize], string);
 	}
 	else
@@ -104,7 +98,7 @@ int dfinisher(char *string, struct flags flags)
 	else
 		size = strlen(copy_string);
 	if (!(canvas = (char*)malloc(sizeof(char) * size + 1)))
-		return (-1);
+		return (0);
 	canvas[size] = '\0';
 	canvas = canvas_filler(size, canvas, flags);
 	end(flags, copy_string, target, string, canvas, size);
