@@ -49,7 +49,6 @@ struct flags flagmaker(struct flags flag, char *string, va_list ap)
     opoint = string;
     flag_init(&flag);
     string = pre_field(string, &flag);
-
     if ('0' <= *string && *string <= '9')
     {
         flag.field = 0;
