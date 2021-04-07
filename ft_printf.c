@@ -7,7 +7,7 @@ int	ft_printf(char *fmt, ...)
 	char *converted_value;
 	char *p;
 	int size_string;
-
+"hi!"
 	va_start(ap, fmt);
 	size_string = 0;
 	p = fmt;
