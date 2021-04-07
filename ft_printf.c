@@ -37,6 +37,8 @@ int	diuxX_case(char *p, int size_string, va_list ap, struct flags flag)
 			converted_value = ft_itoa(va_arg(ap, unsigned int));
 		else
 			converted_value = ft_itoa(va_arg(ap, int));
+		if (flag.prec < 0)
+			flag.prec = -1;
 		size_string += dfinisher(converted_value, flag);
 		free(converted_value);
 	}
