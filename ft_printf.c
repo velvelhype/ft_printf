@@ -97,5 +97,5 @@ int ft_printf(char *fmt, ...)
         p++;
     }
     va_end(ap);
-    return (size_string);
+	return (size_string);
 }
