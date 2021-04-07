@@ -3,7 +3,7 @@
 int ft_printf(char *fmt, ...)
 {
     va_list ap;
-    struct flags flag = {-1, -1, -1, -1, -1, 0};
+    struct flags flag;
     char *converted_value;
     char *p;
     va_start(ap, fmt);
@@ -97,5 +97,5 @@ int ft_printf(char *fmt, ...)
         p++;
     }
     va_end(ap);
-    return size_string;
+    return (size_string);
 }
