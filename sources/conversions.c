@@ -1,7 +1,8 @@
 #include "../includes/ft_printf.h"
-char *itoa_make(long len, int neg, long d)
+char	*itoa_make(long len, int neg, long d)
 {
 	char *slot;
+
 	if (!(slot = (char*)malloc(sizeof(char) * len + neg + 1)))
 		return (NULL);
 	slot[len + neg] = '\0';
@@ -11,8 +12,7 @@ char *itoa_make(long len, int neg, long d)
 		d /= 10;
 	}
 	slot[0] = neg == 1 ? '-' : slot[0];
-
-	return slot;
+	return (slot);
 }
 
 char	*ft_itoa(size_t e)
@@ -21,13 +21,13 @@ char	*ft_itoa(size_t e)
 	long 	len;
 	long 	ruler;
 	long 	d;
-	
+
 	ruler = 1;
 	d = e;
-	neg = d < 0 ? 1:0;
-	if(neg == 1)
+	neg = d < 0 ? 1 : 0;
+	if (neg == 1)
 		d = -d;
-	len = d < 10 ? 1:0;
+	len = d < 10 ? 1 : 0;
 	while (ruler <= d && d >= 10)
 	{
 		ruler *= 10;

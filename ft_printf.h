@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-struct flags
+typedef struct flags
 {
     int minus;
     int zero;
@@ -16,7 +16,7 @@ struct flags
     int prec;
     int type;
     int flagsize;
-};
+} flags;
 
 
 char *ft_itoa(size_t d);

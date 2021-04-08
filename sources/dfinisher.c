@@ -1,33 +1,34 @@
 #include "../includes/ft_printf.h"
 
-char* copy_str_maker(int countpre, struct flags flags, int stringsize, char *string, char *copy_string)
+char*	copy_str_maker(struct flags flags, int s_size, char *str, char *cp_str)
 {
-	if (flags.prec >= stringsize && *string == '-')
+	int i = flags.prec;
+	if (flags.prec >= s_size && *str == '-')
 	{
-		if (!(copy_string = (char*)malloc(sizeof(char) * flags.prec + 2)))
+		if (!(cp_str = (char*)malloc(sizeof(char) * flags.prec + 2)))
 			return (NULL);
-		copy_string[flags.prec + 1] = '\0';
-		countpre++;
-		while (--countpre)
-			copy_string[countpre - 1] = '0';
-		strcpy(&copy_string[flags.prec - stringsize + 2], string + 1);
-		*copy_string = '-';
+		cp_str[flags.prec + 1] = '\0';
+		i++;
+		while (--i)
+			cp_str[i - 1] = '0';
+		strcpy(&cp_str[flags.prec - s_size + 2], str + 1);
+		*cp_str = '-';
 	}
-	else if (flags.prec > stringsize)
+	else if (flags.prec > s_size)
 	{
-		if (!(copy_string = (char*)malloc(sizeof(char) * flags.prec + 1)))
+		if (!(cp_str = (char*)malloc(sizeof(char) * flags.prec + 1)))
 			return (NULL);
-		copy_string[flags.prec] = '\0';
-		while (--countpre)
-			copy_string[countpre - 1] = '0';
-		strcpy(&copy_string[flags.prec - stringsize], string);
+		cp_str[flags.prec] = '\0';
+		while (--i)
+			cp_str[i - 1] = '0';
+		strcpy(&cp_str[flags.prec - s_size], str);
 	}
 	else
-		copy_string = strdup(string);
-	return (copy_string);
+		cp_str = strdup(str);
+	return (cp_str);
 }
 
-char* background_filler(int size, char *background, struct flags flags)
+char*	form_filler(int size, char *form, struct flags flags)
 {
 	int second_precount = flags.prec;
 	
@@ -35,19 +36,19 @@ char* background_filler(int size, char *background, struct flags flags)
 	{
 		if (flags.zero != -1 && second_precount)
 		{
-			background[size - 1] = '0';
+			form[size - 1] = '0';
 			second_precount--;
 		}
 		else
-			background[size - 1] = ' ';
+			form[size - 1] = ' ';
 		size--;
 	}
-	return (background);
+	return (form);
 }
 
-void d_end(struct flags flags, char *copy_string, int target, char *string, char *background, int sizec)
+void	d_end(struct flags flags, char *cp_str, int target, char *str, char *form, int size)
 {
-	flags.prec = strlen(copy_string);
+	flags.prec = strlen(cp_str);
 	if (flags.minus != -1)
 	{
 		target = flags.prec;
@@ -55,52 +56,50 @@ void d_end(struct flags flags, char *copy_string, int target, char *string, char
 			target++;
 	}
 	else
-		target = sizec;
-
+		target = size;
 	if (flags.prec == -1)
-		flags.prec = strlen(string);
-
+		flags.prec = strlen(str);
 	while (flags.prec != 0)
 	{
-		background[target - 1] = copy_string[flags.prec - 1];
+		form[target - 1] = cp_str[flags.prec - 1];
 		target--;
 		flags.prec--;
 	}
 	if (flags.zero == 2)
-		*background = '-';
-	write(1, background, strlen(background));
-	free(background);
-	free(copy_string);
+		*form = '-';
+	write(1, form, strlen(form));
+	free(form);
+	free(cp_str);
 }
 
-int dfinisher(char *string, struct flags flags)
+int		dfinisher(char *str, struct flags flags)
 {
-	char *background;
-	char *copy_string = NULL;
+	char *form;
+	char *cp_str = NULL;
 	int size;
 	int target = 0;
 
-	if (flags.zero == 1 && flags.field > (int)strlen(string) && *string == '-' && flags.prec == -1)
+	if (flags.zero == 1 && flags.field > (int)strlen(str) && *str == '-' && flags.prec == -1)
 	{
 		flags.zero = 2;
-		*string = '0';
+		*str = '0';
 	}
-	if (flags.field <= 1 && flags.prec == 0 && (int)strlen(string) == 1 && *string == '0')
+	if (flags.field <= 1 && flags.prec == 0 && (int)strlen(str) == 1 && *str == '0')
 		return (0);
-	if (flags.prec == 0 && *string == '0' && *(string + 1) == '\0')
-		string[strlen(string) - 1] = ' ';
-	if	(!(copy_string = copy_str_maker(flags.prec, flags, (int)strlen(string), string, copy_string)))
+	if (flags.prec == 0 && *str == '0' && *(str + 1) == '\0')
+		str[strlen(str) - 1] = ' ';
+	if	(!(cp_str = copy_str_maker(flags, (int)strlen(str), str, cp_str)))
 		return 0;
 	if (flags.prec == -1)
-		size = strlen(copy_string);
-	if (flags.prec < flags.field && flags.field > (int)strlen(copy_string))
+		size = strlen(cp_str);
+	if (flags.prec < flags.field && flags.field > (int)strlen(cp_str))
 		size = flags.field;
 	else
-		size = strlen(copy_string);
-	if (!(background = (char*)malloc(sizeof(char) * size + 1)))
+		size = strlen(cp_str);
+	if (!(form = (char*)malloc(sizeof(char) * size + 1)))
 		return (0);
-	background[size] = '\0';
-	background = background_filler(size, background, flags);
-	d_end(flags, copy_string, target, string, background, size);
+	form[size] = '\0';
+	form = form_filler(size, form, flags);
+	d_end(flags, cp_str, target, str, form, size);
 	return (size);
 }

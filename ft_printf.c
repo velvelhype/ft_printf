@@ -54,23 +54,28 @@ int	diuxX_case(char *p, int size_string, va_list ap, struct flags flag)
 	return size_string;
 }
 
-int	p_percent_case(char *p, int size_string, va_list ap, struct flags flag)
+void p_case(char *converted_value, va_list ap, int size_string, struct flags flag)
 {
-	char	*converted_value;
 	const char loc[3] = "0x";
 	char *unified_string;
 
+	converted_value = x_con(va_arg(ap, unsigned long), 'x');
+	if (*converted_value == '0' && *(converted_value + 1) == '\0' && flag.prec == 0)
+		unified_string = strdup(loc);
+	else
+		unified_string = ft_strjoin(loc, converted_value);
+	size_string += dfinisher(unified_string, flag);
+	free(converted_value);
+	free(unified_string);
+}
+
+int	p_percent_case(char *p, int size_string, va_list ap, struct flags flag)
+{
+	char	*converted_value;
+
+	converted_value = NULL;
 	if (*p == 'p')
-	{
-		converted_value = x_con(va_arg(ap, unsigned long), 'x');
-		if (*converted_value == '0' && *(converted_value + 1) == '\0' && flag.prec == 0)
-			unified_string = strdup(loc);
-		else
-			unified_string = ft_strjoin(loc, converted_value);
-		size_string += dfinisher(unified_string, flag);
-		free(converted_value);
-		free(unified_string);
-	}
+		p_case(converted_value, ap, size_string, flag);
 	if (*p == '%')
 	{
 		converted_value = (char*)malloc(sizeof(char) * 2);
@@ -84,13 +89,30 @@ int	p_percent_case(char *p, int size_string, va_list ap, struct flags flag)
 	return (size_string);
 }
 
+int conv(char *p, struct flags flag, va_list ap, int size_string)
+{
+	if (*p == 'c' || *p == 's')
+		size_string = cs_case(p, size_string, ap, flag);
+	if (*p == 'd' || *p == 'i' || *p == 'u' || *p == 'x' || *p == 'X')
+		size_string = diuxX_case(p, size_string, ap, flag);
+	if (*p == 'p' || *p == '%')
+		size_string = p_percent_case(p, size_string, ap, flag);	
+	return (size_string);
+}
+
+int write_chara(char *p, int size_string)
+{
+	write(1, p, 1);
+	size_string++;
+	return (size_string);
+}
 
 int	ft_printf(char *fmt, ...)
 {
 	va_list			ap;
-	struct	flags	flag;
 	char			*p;
 	int				size_string;
+	struct flags	flag;
 
 	va_start(ap, fmt);
 	p = fmt;
@@ -102,18 +124,10 @@ int	ft_printf(char *fmt, ...)
 			p++;
 			flag = flagmaker(flag, p, ap);
 			p += flag.flagsize;
-			if (*p == 'c' || *p == 's')
-				size_string = cs_case(p, size_string, ap, flag);
-			if (*p == 'd' || *p == 'i' || *p == 'u' || *p == 'x' || *p == 'X')
-				size_string = diuxX_case(p, size_string, ap, flag);
-			if (*p == 'p' || *p == '%')
-				size_string = p_percent_case(p, size_string, ap, flag);
+			size_string = conv(p, flag, ap, size_string);
 		}
 		else
-		{
-			write(1, p, 1);
-			size_string++;
-		}
+			write_chara(p, size_string);
 		p++;
 	}
 	va_end(ap);

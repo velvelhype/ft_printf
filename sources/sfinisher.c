@@ -1,75 +1,75 @@
 #include "../includes/ft_printf.h"
 
-int string_size_make(struct flags flag, int string_size)
+int s_size_make(struct flags flag, int s_size)
 {
 	if (flag.prec != -1)
 	{
 		if (flag.field != -1)
 		{
-			if (flag.prec < string_size)
-				string_size = flag.prec;
+			if (flag.prec < s_size)
+				s_size = flag.prec;
 		}
 		else
-			string_size = flag.prec;
+			s_size = flag.prec;
 	}
-	return (string_size);
+	return (s_size);
 }
 
-char *bg_fill(int size, struct flags flag, char *background)
+char *bg_fill(int size, struct flags flag, char *form)
 {
 	while (size > 0)
 	{
 		if (flag.zero != -1)
-			background[size - 1] = '0';
+			form[size - 1] = '0';
 		else
-			background[size - 1] = ' ';
+			form[size - 1] = ' ';
 		size--;
 	}
-	return (background);
+	return (form);
 }
 
-char *string_to_backgtound(struct flags flag, int string_size, char *background, char *string, int sizec)
+char *string_to_form(struct flags flag, int s_size, char *form, char *string, int sizec)
 {
 	int target;
 
 	if (flag.minus != -1 && flag.field > 0)
 	{
-		if (flag.prec != -1 && flag.prec < string_size)
+		if (flag.prec != -1 && flag.prec < s_size)
 			target = flag.prec;
 		else
-			target = string_size;
+			target = s_size;
 	}
 	else
 		target = sizec;
 
-	while (string_size > 0)
+	while (s_size > 0)
 	{
-		background[target - 1] = string[string_size - 1];
+		form[target - 1] = string[s_size - 1];
 		target--;
-		string_size--;
+		s_size--;
 	}
-	return (background);
+	return (form);
 }
 
-void s_end(char *background, struct flags flag, char *string)
+void s_end(char *form, struct flags flag, char *string)
 {
-	int howmanywewrite = ft_strlen(background);
+	int howmanywewrite = ft_strlen(form);
 	if (flag.type == 'c' && *string == 0)
 	{
 		if (flag.minus != 1)
-			background[ft_strlen(background) - 1] = '\0';
+			form[ft_strlen(form) - 1] = '\0';
 		else
-			*background = '\0';
+			*form = '\0';
 	}
-	write(1, background, howmanywewrite);
-	free(background);	
+	write(1, form, howmanywewrite);
+	free(form);	
 }
 
 int sfinisher(struct flags flag, char *string)
 {
-	char *background;
+	char *form;
 	int size;
-	int string_size = ft_strlen(string);
+	int s_size = ft_strlen(string);
 
 	if(flag.prec < 0)
 		flag.prec = -1;
@@ -77,18 +77,18 @@ int sfinisher(struct flags flag, char *string)
 		flag.field = 1;
 	if (flag.zero == 1 && flag.minus == 1)
 		return 0;
-	if ((flag.prec == -1 && flag.field <= string_size) || (flag.prec > string_size && flag.prec > flag.field && flag.field != -1 && string_size >= flag.field))
+	if ((flag.prec == -1 && flag.field <= s_size) || (flag.prec > s_size && flag.prec > flag.field && flag.field != -1 && s_size >= flag.field))
 		size = ft_strlen(string);
-	else if ((flag.field > string_size || flag.prec < flag.field) && flag.field != -1)
+	else if ((flag.field > s_size || flag.prec < flag.field) && flag.field != -1)
 		size = flag.field;
 	else
 		size = flag.prec;
-	if (!(background = (char *)malloc(sizeof(char) * size + 1)))
+	if (!(form = (char *)malloc(sizeof(char) * size + 1)))
 		return (-1);
-	background[size] = '\0';
-	background = bg_fill(size, flag, background);
-	string_size = string_size_make(flag, string_size);
-	string_to_backgtound(flag, string_size, background, string, size);
-	s_end(background, flag, string);
+	form[size] = '\0';
+	form = bg_fill(size, flag, form);
+	s_size = s_size_make(flag, s_size);
+	string_to_form(flag, s_size, form, string, size);
+	s_end(form, flag, string);
 	return (size);
 }
