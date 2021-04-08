@@ -73,6 +73,7 @@ void	d_end(struct flags fl, char *cp_str, int target, char *str, char *form, int
 	free(form);
 	free(cp_str);
 }
+
 int		size_make(struct flags fl, int size, char *cp_str)
 {
 	if (fl.prec == -1)
@@ -94,7 +95,8 @@ int		dfinisher(char *str, struct flags fl)
 	cp_str = NULL;
 	size = 0;
 	target = 0;
-	if (fl.zero == 1 && fl.field > (int)strlen(str) && *str == '-' && fl.prec == -1)
+	if (fl.zero == 1 && fl.field > (int)strlen(str) &&
+	*str == '-' && fl.prec == -1)
 	{
 		fl.zero = 2;
 		*str = '0';
