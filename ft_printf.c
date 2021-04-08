@@ -57,7 +57,7 @@ int		diux(char *p, int size_string, va_list ap, struct flags flag)
 void	p_case(char *conved_v, va_list ap, int size_string, struct flags flag)
 {
 	const char	loc[3] = "0x";
-	char 		*unified_string;
+	char	*unified_string;
 
 	conved_v = x_con(va_arg(ap, unsigned long), 'x');
 	if (*conved_v == '0' &&
