@@ -18,6 +18,7 @@ struct flags
     int flagsize;
 };
 
+void    flag_init(struct flags *flag);
 int write_chara(char *p, int size_string);
 int	conv(char *p, struct flags flag, va_list ap);
 char *ft_itoa(size_t d);

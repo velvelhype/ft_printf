@@ -9,16 +9,6 @@ int				typefinder(char s)
 	return (0);
 }
 
-void			flag_init(struct flags *flag)
-{
-	flag->minus = -1;
-	flag->zero = -1;
-	flag->field = -1;
-	flag->prec = -1;
-	flag->type = -1;
-	flag->flagsize = -1;
-}
-
 char			*pre_field(char *str, struct flags *flag)
 {
 	while (*str == '-')

@@ -89,12 +89,6 @@ int		conv(char *p, struct flags flag, va_list ap)
 	return (size_string);
 }
 
-// int		write_chara(char *p, int size_string)
-// {
-// 	write(1, p, 1);
-// 	return (size_string);
-// }
-
 int		ft_printf(char *fmt, ...)
 {
 	va_list			ap;
