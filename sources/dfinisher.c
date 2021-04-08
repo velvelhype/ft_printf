@@ -33,7 +33,7 @@ char	*copy_str_maker(struct flags fl, int s_size, char *str, char *cp_str)
 char	*form_filler(int size, char *form, struct flags fl)
 {
 	int second_precount = fl.prec;
-	
+
 	while (size > 0)
 	{
 		if (fl.zero != -1 && second_precount)
@@ -87,10 +87,11 @@ int		size_make(struct flags fl, int size, char *cp_str)
 int		dfinisher(char *str, struct flags fl)
 {
 	char	*form;
-	char	*cp_str = NULL;
+	char	*cp_str;
 	int		size;
 	int		target;
 
+	cp_str = NULL;
 	size = 0;
 	target = 0;
 	if (fl.zero == 1 && fl.field > (int)strlen(str) && *str == '-' && fl.prec == -1)
@@ -102,7 +103,7 @@ int		dfinisher(char *str, struct flags fl)
 		return (0);
 	if (fl.prec == 0 && *str == '0' && *(str + 1) == '\0')
 		str[strlen(str) - 1] = ' ';
-	if	(!(cp_str = copy_str_maker(fl, (int)strlen(str), str, cp_str)))
+	if (!(cp_str = copy_str_maker(fl, (int)strlen(str), str, cp_str)))
 		return (0);
 	size = size_make(fl, size, cp_str);
 	if (!(form = (char*)malloc(sizeof(char) * size + 1)))
