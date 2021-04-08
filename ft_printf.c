@@ -3,7 +3,6 @@
 int		cs_case(char *p, int size_string, va_list ap, struct flags flag)
 {
 	char	*conved_v;
-	char	c;
 
 	if (*p == 's')
 	{
@@ -13,12 +12,11 @@ int		cs_case(char *p, int size_string, va_list ap, struct flags flag)
 		else
 			size_string += sfinisher(flag, conved_v);
 	}
-	else
+	else if (*p == 'c')
 	{
-		c = va_arg(ap, int);
 		conved_v = (char*)malloc(sizeof(char) * 2);
-		*conved_v = c;
 		*(conved_v + 1) = '\0';
+		*conved_v = va_arg(ap, int);
 		if (flag.prec == 0)
 			flag.prec = 1;
 		size_string += sfinisher(flag, conved_v);
@@ -54,7 +52,7 @@ int		diux(char *p, int size_string, va_list ap, struct flags flag)
 	return (size_string);
 }
 
-void	p_case(char *conved_v, va_list ap, int size_string, struct flags flag)
+int		p_case(char *conved_v, va_list ap, int size_string, struct flags flag)
 {
 	const char	loc[3] = "0x";
 	char		*unified_string;
@@ -68,6 +66,7 @@ void	p_case(char *conved_v, va_list ap, int size_string, struct flags flag)
 	size_string += dfinisher(unified_string, flag);
 	free(conved_v);
 	free(unified_string);
+	return (size_string);
 }
 
 int		p_percent_case(char *p, int size_string, va_list ap, struct flags flag)
@@ -76,7 +75,7 @@ int		p_percent_case(char *p, int size_string, va_list ap, struct flags flag)
 
 	conved_v = NULL;
 	if (*p == 'p')
-		p_case(conved_v, ap, size_string, flag);
+		size_string += p_case(conved_v, ap, size_string, flag);
 	if (*p == '%')
 	{
 		conved_v = (char*)malloc(sizeof(char) * 2);
@@ -104,7 +103,6 @@ int		conv(char *p, struct flags flag, va_list ap, int size_string)
 int		write_chara(char *p, int size_string)
 {
 	write(1, p, 1);
-	size_string++;
 	return (size_string);
 }
 
@@ -127,8 +125,10 @@ int		ft_printf(char *fmt, ...)
 			p += flag.flagsize;
 			size_string = conv(p, flag, ap, size_string);
 		}
-		else
+		else if(size_string++ != -1)
+		{
 			write_chara(p, size_string);
+		}
 		p++;
 	}
 	va_end(ap);

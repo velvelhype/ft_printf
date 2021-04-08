@@ -50,7 +50,7 @@ char	*string_to_form(struct flags flag, int s_s, char *form, char *string, int s
 	return (form);
 }
 
-void	s_end(char *form, struct flags flag, char *string)
+int		s_end(char *form, struct flags flag, char *string)
 {
 	int numb;
 
@@ -64,6 +64,7 @@ void	s_end(char *form, struct flags flag, char *string)
 	}
 	write(1, form, numb);
 	free(form);
+	return ((int)strlen(form));
 }
 
 int		sfinisher(struct flags flag, char *string)
@@ -92,6 +93,5 @@ int		sfinisher(struct flags flag, char *string)
 	form = bg_fill(size, flag, form);
 	s_s = s_s_make(flag, s_s);
 	string_to_form(flag, s_s, form, string, size);
-	s_end(form, flag, string);
-	return (size);
+	return (s_end(form, flag, string));
 }
