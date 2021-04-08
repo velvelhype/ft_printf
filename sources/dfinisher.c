@@ -32,8 +32,9 @@ char	*copy_str_maker(struct flags fl, int s_size, char *str, char *cp_str)
 
 char	*form_filler(int size, char *form, struct flags fl)
 {
-	int second_precount = fl.prec;
-
+	int second_precount;
+	
+	second_precount = fl.prec;
 	while (size > 0)
 	{
 		if (fl.zero != -1 && second_precount)
