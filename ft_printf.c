@@ -55,29 +55,11 @@ int		diux(char *p, va_list ap, struct flags flag)
 	return (size_string);
 }
 
-int		p_case(char *conved_v, va_list ap, struct flags flag)
-{
-	const char	loc[3] = "0x";
-	char		*unified_string;
-	int			size_string; 
-
-	conved_v = x_con(va_arg(ap, unsigned long), 'x');
-	if (*conved_v == '0' &&
-	*(conved_v + 1) == '\0' && flag.prec == 0)
-		unified_string = strdup(loc);
-	else
-		unified_string = ft_strjoin(loc, conved_v);
-	size_string = dfinisher(unified_string, flag);
-	free(conved_v);
-	free(unified_string);
-	return (size_string);
-}
-
 int		p_percent_case(char *p, va_list ap, struct flags flag)
 {
 	char	*conved_v;
 	int		size_string;
- 
+
 	conved_v = NULL;
 	if (*p == 'p')
 		size_string = p_case(conved_v, ap, flag);
@@ -107,11 +89,11 @@ int		conv(char *p, struct flags flag, va_list ap)
 	return (size_string);
 }
 
-int		write_chara(char *p, int size_string)
-{
-	write(1, p, 1);
-	return (size_string);
-}
+// int		write_chara(char *p, int size_string)
+// {
+// 	write(1, p, 1);
+// 	return (size_string);
+// }
 
 int		ft_printf(char *fmt, ...)
 {
@@ -132,7 +114,7 @@ int		ft_printf(char *fmt, ...)
 			p += flag.flagsize;
 			size_string += conv(p, flag, ap);
 		}
-		else if(size_string++ != -1)
+		else if (size_string++ != -1)
 		{
 			write_chara(p, size_string);
 		}

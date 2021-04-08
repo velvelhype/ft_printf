@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "ios": "c",
-        "locale": "c"
+        "locale": "c",
+        "ft_printf.h": "c"
     }
 }
