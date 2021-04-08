@@ -50,7 +50,9 @@ char	*form_filler(int size, char *form, struct flags fl)
 
 void	d_end(struct flags fl, char *cp_str, char *str, char *form, int size)
 {
-	int target = 0;
+	int target
+
+	target = 0;
 	fl.prec = strlen(cp_str);
 	if (fl.minus != -1)
 	{
