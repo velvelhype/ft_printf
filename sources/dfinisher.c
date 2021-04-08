@@ -71,13 +71,23 @@ void	d_end(struct flags flags, char *cp_str, int target, char *str, char *form, 
 	free(form);
 	free(cp_str);
 }
+int size_make(struct flags flags, int size, char *cp_str)
+{
+	if (flags.prec == -1)
+		size = strlen(cp_str);
+	if (flags.prec < flags.field && flags.field > (int)strlen(cp_str))
+		size = flags.field;
+	else
+		size = strlen(cp_str);
+	return (size);
+}
 
 int		dfinisher(char *str, struct flags flags)
 {
 	char *form;
 	char *cp_str = NULL;
 	int size;
-	int target = 0;
+	int target;
 
 	if (flags.zero == 1 && flags.field > (int)strlen(str) && *str == '-' && flags.prec == -1)
 	{
@@ -90,16 +100,11 @@ int		dfinisher(char *str, struct flags flags)
 		str[strlen(str) - 1] = ' ';
 	if	(!(cp_str = copy_str_maker(flags, (int)strlen(str), str, cp_str)))
 		return 0;
-	if (flags.prec == -1)
-		size = strlen(cp_str);
-	if (flags.prec < flags.field && flags.field > (int)strlen(cp_str))
-		size = flags.field;
-	else
-		size = strlen(cp_str);
+	size = size_make(flags, size = 0, cp_str);
 	if (!(form = (char*)malloc(sizeof(char) * size + 1)))
 		return (0);
 	form[size] = '\0';
 	form = form_filler(size, form, flags);
-	d_end(flags, cp_str, target, str, form, size);
+	d_end(flags, cp_str, target = 0, str, form, size);
 	return (size);
 }
