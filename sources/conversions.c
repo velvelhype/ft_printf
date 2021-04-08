@@ -1,4 +1,5 @@
 #include "../includes/ft_printf.h"
+
 char	*itoa_make(long len, int neg, long d)
 {
 	char *slot;
@@ -18,9 +19,9 @@ char	*itoa_make(long len, int neg, long d)
 char	*ft_itoa(size_t e)
 {
 	int		neg;
-	long 	len;
-	long 	ruler;
-	long 	d;
+	long	len;
+	long	ruler;
+	long	d;
 
 	ruler = 1;
 	d = e;
