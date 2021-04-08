@@ -3,14 +3,13 @@
 int typefinder(char s)
 {
 	if (s == 'c' || s == 's' || s == 'p' || s == 'd')
-		return s;
+		return (s);
 	if (s == 'i' || s == 'u' || s == 'x' || s == 'X' || s == '%')
-		return s;
-	return 0;
+		return (s);
+	return (0);
 }
 
-
-void flag_init(struct flags *flag)
+void	flag_init(struct flags *flag)
 {
 	flag->minus = -1;
 	flag->zero = -1;
@@ -20,9 +19,9 @@ void flag_init(struct flags *flag)
 	flag->flagsize = -1;
 }
 
-char *pre_field(char *string, struct flags *flag)
+char	*pre_field(char *string, struct flags *flag)
 {
-	while(*string == '-')
+	while (*string == '-')
 	{
 		flag->minus = 1;
 		string++;
@@ -38,26 +37,26 @@ char *pre_field(char *string, struct flags *flag)
 		flag->minus = 1;
 		string++;
 	}
-	return string;
+	return (string);
 }
 
-char *field_make(struct flags *flag, char *string, int digitsize, va_list ap)
+char	*field_make(struct flags *flag, char *string, int digitsize, va_list ap)
 {
 	if ('0' <= *string && *string <= '9')
 	{
-		flag -> field = 0;
-		while (typefinder(*(string + digitsize)) == 0 && *(string + digitsize) != '.')
+		flag->field = 0;
+		while (typefinder(*(string + digitsize)) == 0 
+		&& *(string + digitsize) != '.')
 			digitsize++;
 		while (--digitsize >= 0)
 		{
-			flag -> field = (flag ->field * 10 + (*string - 48));
+			flag->field = (flag->field * 10 + (*string - 48));
 			string++;
 		}
 	}
 	else if (*string == '*')
 	{
 		flag->field = va_arg(ap, int);
-		
 		if (flag->field < 0)
 		{
 			flag->field *= -1;
@@ -70,7 +69,7 @@ char *field_make(struct flags *flag, char *string, int digitsize, va_list ap)
 	return (string);
 }
 
-char *prec_make(struct flags *flag, char *string, int digitsize, va_list ap)
+char	*prec_make(struct flags *flag, char *string, int digitsize, va_list ap)
 {
 	if (*string == '.')
 	{
@@ -84,7 +83,8 @@ char *prec_make(struct flags *flag, char *string, int digitsize, va_list ap)
 		{
 			flag->prec = 0;
 			digitsize = 0;
-			while (typefinder(*(string + digitsize)) == 0 && *(string + digitsize) != '.')
+			while (typefinder(*(string + digitsize)) == 0 
+			&& *(string + digitsize) != '.')
 			{
 				flag->prec = (flag->prec * 10) + *(string + digitsize) - '0';
 				digitsize++;
@@ -100,9 +100,10 @@ char *prec_make(struct flags *flag, char *string, int digitsize, va_list ap)
 
 struct flags flagmaker(struct flags flag, char *string, va_list ap)
 {
-	int digitsize = 0;
-	char *opoint;
+	int		digitsize;
+	char	*opoint;
 
+	digitsize = 0;
 	opoint = string;
 	flag_init(&flag);
 	string = pre_field(string, &flag);
@@ -110,7 +111,7 @@ struct flags flagmaker(struct flags flag, char *string, va_list ap)
 	string = prec_make(&flag, string, digitsize, ap);
 	flag.type = typefinder(*string);
 	flag.flagsize = string - opoint;
-	if(flag.zero == 1 && flag.minus == 1 )
+	if (flag.zero == 1 && flag.minus == 1)
 		flag.zero = -1;
-	return flag;
+	return (flag);
 }
