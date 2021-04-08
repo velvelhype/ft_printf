@@ -41,7 +41,6 @@ char	*string_to_form(struct flags flag, int s_s, char *form, char *string, int s
 	}
 	else
 		target = sizec;
-
 	while (s_s > 0)
 	{
 		form[target - 1] = string[s_s - 1];
@@ -53,7 +52,9 @@ char	*string_to_form(struct flags flag, int s_s, char *form, char *string, int s
 
 void	s_end(char *form, struct flags flag, char *string)
 {
-	int howmanywewrite = ft_strlen(form);
+	int numb;
+	
+	numb = ft_strlen(form);
 	if (flag.type == 'c' && *string == 0)
 	{
 		if (flag.minus != 1)
@@ -61,16 +62,16 @@ void	s_end(char *form, struct flags flag, char *string)
 		else
 			*form = '\0';
 	}
-	write(1, form, howmanywewrite);
-	free(form);	
+	write(1, form, numb);
+	free(form);
 }
 
 int		sfinisher(struct flags flag, char *string)
 {
-	char *form;
-	int size;
-	int s_s;
-	
+	char	*form;
+	int		size;
+	int		s_s;
+
 	s_s = ft_strlen(string);
 	if (flag.prec < 0)
 		flag.prec = -1;
