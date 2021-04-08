@@ -53,7 +53,7 @@ char	*string_to_form(struct flags flag, int s_s, char *form, char *string, int s
 void	s_end(char *form, struct flags flag, char *string)
 {
 	int numb;
-	
+
 	numb = ft_strlen(form);
 	if (flag.type == 'c' && *string == 0)
 	{
