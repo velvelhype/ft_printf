@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-int typefinder(char s)
+int				typefinder(char s)
 {
 	if (s == 'c' || s == 's' || s == 'p' || s == 'd')
 		return (s);
@@ -9,7 +9,7 @@ int typefinder(char s)
 	return (0);
 }
 
-void	flag_init(struct flags *flag)
+void			flag_init(struct flags *flag)
 {
 	flag->minus = -1;
 	flag->zero = -1;
@@ -19,7 +19,7 @@ void	flag_init(struct flags *flag)
 	flag->flagsize = -1;
 }
 
-char	*pre_field(char *string, struct flags *flag)
+char			*pre_field(char *string, struct flags *flag)
 {
 	while (*string == '-')
 	{
@@ -40,12 +40,12 @@ char	*pre_field(char *string, struct flags *flag)
 	return (string);
 }
 
-char	*field_make(struct flags *flag, char *string, int digitsize, va_list ap)
+char			*field_make(struct flags *flag, char *string, int digitsize, va_list ap)
 {
 	if ('0' <= *string && *string <= '9')
 	{
 		flag->field = 0;
-		while (typefinder(*(string + digitsize)) == 0 
+		while (typefinder(*(string + digitsize)) == 0
 		&& *(string + digitsize) != '.')
 			digitsize++;
 		while (--digitsize >= 0)
@@ -69,7 +69,7 @@ char	*field_make(struct flags *flag, char *string, int digitsize, va_list ap)
 	return (string);
 }
 
-char	*prec_make(struct flags *flag, char *string, int digitsize, va_list ap)
+char			*prec_make(struct flags *flag, char *string, int digitsize, va_list ap)
 {
 	if (*string == '.')
 	{
@@ -83,7 +83,7 @@ char	*prec_make(struct flags *flag, char *string, int digitsize, va_list ap)
 		{
 			flag->prec = 0;
 			digitsize = 0;
-			while (typefinder(*(string + digitsize)) == 0 
+			while (typefinder(*(string + digitsize)) == 0
 			&& *(string + digitsize) != '.')
 			{
 				flag->prec = (flag->prec * 10) + *(string + digitsize) - '0';
@@ -98,7 +98,7 @@ char	*prec_make(struct flags *flag, char *string, int digitsize, va_list ap)
 	return (string);
 }
 
-struct flags flagmaker(struct flags flag, char *string, va_list ap)
+struct	flags	flagmaker(struct flags flag, char *string, va_list ap)
 {
 	int		digitsize;
 	char	*opoint;
