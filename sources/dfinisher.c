@@ -24,10 +24,10 @@ char* copy_str_maker(int countpre, struct flags flags, int stringsize, char *str
 	}
 	else
 		copy_string = strdup(string);
-	return copy_string;
+	return (copy_string);
 }
 
-char* canvas_filler(int size, char *canvas, struct flags flags)
+char* background_filler(int size, char *background, struct flags flags)
 {
 	int second_precount = flags.prec;
 	
@@ -35,17 +35,17 @@ char* canvas_filler(int size, char *canvas, struct flags flags)
 	{
 		if (flags.zero != -1 && second_precount)
 		{
-			canvas[size - 1] = '0';
+			background[size - 1] = '0';
 			second_precount--;
 		}
 		else
-			canvas[size - 1] = ' ';
+			background[size - 1] = ' ';
 		size--;
 	}
-	return (canvas);
+	return (background);
 }
 
-void end(struct flags flags, char *copy_string, int target, char *string, char *canvas, int sizec)
+void d_end(struct flags flags, char *copy_string, int target, char *string, char *background, int sizec)
 {
 	flags.prec = strlen(copy_string);
 	if (flags.minus != -1)
@@ -62,20 +62,20 @@ void end(struct flags flags, char *copy_string, int target, char *string, char *
 
 	while (flags.prec != 0)
 	{
-		canvas[target - 1] = copy_string[flags.prec - 1];
+		background[target - 1] = copy_string[flags.prec - 1];
 		target--;
 		flags.prec--;
 	}
 	if (flags.zero == 2)
-		*canvas = '-';
-	write(1, canvas, strlen(canvas));
-	free(canvas);
+		*background = '-';
+	write(1, background, strlen(background));
+	free(background);
 	free(copy_string);
 }
 
 int dfinisher(char *string, struct flags flags)
 {
-	char *canvas;
+	char *background;
 	char *copy_string = NULL;
 	int size;
 	int target = 0;
@@ -97,10 +97,10 @@ int dfinisher(char *string, struct flags flags)
 		size = flags.field;
 	else
 		size = strlen(copy_string);
-	if (!(canvas = (char*)malloc(sizeof(char) * size + 1)))
+	if (!(background = (char*)malloc(sizeof(char) * size + 1)))
 		return (0);
-	canvas[size] = '\0';
-	canvas = canvas_filler(size, canvas, flags);
-	end(flags, copy_string, target, string, canvas, size);
+	background[size] = '\0';
+	background = background_filler(size, background, flags);
+	d_end(flags, copy_string, target, string, background, size);
 	return (size);
 }
