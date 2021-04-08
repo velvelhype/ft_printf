@@ -77,7 +77,8 @@ int sfinisher(struct flags flag, char *string)
 		flag.field = 1;
 	if (flag.zero == 1 && flag.minus == 1)
 		return 0;
-	if ((flag.prec == -1 && flag.field <= s_size) || (flag.prec > s_size && flag.prec > flag.field && flag.field != -1 && s_size >= flag.field))
+	if ((flag.prec == -1 && flag.field <= s_size) || (flag.prec > s_size 
+	&& flag.prec > flag.field && flag.field != -1 && s_size >= flag.field))
 		size = ft_strlen(string);
 	else if ((flag.field > s_size || flag.prec < flag.field) && flag.field != -1)
 		size = flag.field;
