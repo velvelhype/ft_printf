@@ -64,7 +64,7 @@ int		s_end(char *form, struct flags flag, char *string)
 	}
 	write(1, form, numb);
 	free(form);
-	return ((int)strlen(form));
+	return (numb);
 }
 
 int		sfinisher(struct flags flag, char *string)

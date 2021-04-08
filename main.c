@@ -2,7 +2,7 @@
 
 int main()
 {
-       printf("%2.9p", 1234);
-    ft_printf("%2.9p", 1234);
+    printf("%d\n",printf("%-5c", 0));
+    printf("%d\n",ft_printf("%-5c", 0));
     return 0;
 }
