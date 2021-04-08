@@ -1,8 +1,10 @@
 #include "../includes/ft_printf.h"
 
-char*	copy_str_maker(struct flags fl, int s_size, char *str, char *cp_str)
+char	*copy_str_maker(struct flags fl, int s_size, char *str, char *cp_str)
 {
-	int i = fl.prec;
+	int i;
+
+	i = fl.prec;
 	if (fl.prec >= s_size && *str == '-')
 	{
 		if (!(cp_str = (char*)malloc(sizeof(char) * fl.prec + 2)))
@@ -28,7 +30,7 @@ char*	copy_str_maker(struct flags fl, int s_size, char *str, char *cp_str)
 	return (cp_str);
 }
 
-char*	form_filler(int size, char *form, struct flags fl)
+char	*form_filler(int size, char *form, struct flags fl)
 {
 	int second_precount = fl.prec;
 	
@@ -71,7 +73,7 @@ void	d_end(struct flags fl, char *cp_str, int target, char *str, char *form, int
 	free(form);
 	free(cp_str);
 }
-int size_make(struct flags fl, int size, char *cp_str)
+int		size_make(struct flags fl, int size, char *cp_str)
 {
 	if (fl.prec == -1)
 		size = strlen(cp_str);
@@ -84,11 +86,13 @@ int size_make(struct flags fl, int size, char *cp_str)
 
 int		dfinisher(char *str, struct flags fl)
 {
-	char *form;
-	char *cp_str = NULL;
-	int size;
-	int target;
+	char	*form;
+	char	*cp_str = NULL;
+	int		size;
+	int		target;
 
+	size = 0;
+	target = 0;
 	if (fl.zero == 1 && fl.field > (int)strlen(str) && *str == '-' && fl.prec == -1)
 	{
 		fl.zero = 2;
@@ -99,12 +103,12 @@ int		dfinisher(char *str, struct flags fl)
 	if (fl.prec == 0 && *str == '0' && *(str + 1) == '\0')
 		str[strlen(str) - 1] = ' ';
 	if	(!(cp_str = copy_str_maker(fl, (int)strlen(str), str, cp_str)))
-		return 0;
-	size = size_make(fl, size = 0, cp_str);
+		return (0);
+	size = size_make(fl, size, cp_str);
 	if (!(form = (char*)malloc(sizeof(char) * size + 1)))
 		return (0);
 	form[size] = '\0';
 	form = form_filler(size, form, fl);
-	d_end(fl, cp_str, target = 0, str, form, size);
+	d_end(fl, cp_str, target, str, form, size);
 	return (size);
 }
