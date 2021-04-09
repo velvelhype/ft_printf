@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-char	*copy_str_maker(struct flags fl, int s_size, char *str, char *cp_str)
+char	*copy_str_maker(struct s_fls fl, int s_size, char *str, char *cp_str)
 {
 	int i;
 
@@ -21,7 +21,7 @@ char	*copy_str_maker(struct flags fl, int s_size, char *str, char *cp_str)
 	return (cp_str);
 }
 
-char	*form_filler(int size, char *form, struct flags fl)
+char	*form_filler(int size, char *form, struct s_fls fl)
 {
 	int second_precount;
 
@@ -40,7 +40,7 @@ char	*form_filler(int size, char *form, struct flags fl)
 	return (form);
 }
 
-void	d_end(struct flags fl, char *cp_str, int target, char *form)
+void	d_end(struct s_fls fl, char *cp_str, int target, char *form)
 {
 	while (fl.prec != 0)
 	{
@@ -55,7 +55,7 @@ void	d_end(struct flags fl, char *cp_str, int target, char *form)
 	free(cp_str);
 }
 
-int		size_make(struct flags fl, int size, char *cp_str)
+int		size_make(struct s_fls fl, int size, char *cp_str)
 {
 	if (fl.prec == -1)
 		size = strlen(cp_str);
@@ -66,7 +66,7 @@ int		size_make(struct flags fl, int size, char *cp_str)
 	return (size);
 }
 
-int		dfinisher(char *str, struct flags fl)
+int		dfinisher(char *str, struct s_fls fl)
 {
 	char	*form;
 	char	*cp_str;

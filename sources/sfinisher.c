@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-int		s_s_make(struct flags flag, int s_s)
+int		s_s_make(struct s_fls flag, int s_s)
 {
 	if (flag.prec != -1)
 	{
@@ -15,7 +15,7 @@ int		s_s_make(struct flags flag, int s_s)
 	return (s_s);
 }
 
-char	*bg_fill(int size, struct flags flag, char *form)
+char	*bg_fill(int size, struct s_fls flag, char *form)
 {
 	while (size > 0)
 	{
@@ -39,7 +39,7 @@ char	*string_to_form(int s_s, char *form, char *string, int target)
 	return (form);
 }
 
-int		s_end(char *form, struct flags flag, char *string)
+int		s_end(char *form, struct s_fls flag, char *string)
 {
 	int numb;
 
@@ -56,7 +56,7 @@ int		s_end(char *form, struct flags flag, char *string)
 	return (numb);
 }
 
-int		sfinisher(struct flags flag, char *string)
+int		sfinisher(struct s_fls flag, char *string)
 {
 	char	*form;
 	int		size;

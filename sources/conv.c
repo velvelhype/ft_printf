@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-int		conv(char *p, struct flags flag, va_list ap)
+int		conv(char *p, struct s_fls flag, va_list ap)
 {
 	int size_string;
 

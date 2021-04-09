@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-int		p_case(char *conved_v, va_list ap, struct flags flag)
+int		p_case(char *conved_v, va_list ap, struct s_fls flag)
 {
 	const char	loc[3] = "0x";
 	char		*unified_string;

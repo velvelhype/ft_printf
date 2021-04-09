@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-char	*dfin_case_one(char *cp_str, struct flags fl, int s_size, char *str)
+char	*dfin_case_one(char *cp_str, struct s_fls fl, int s_size, char *str)
 {
 	int i;
 

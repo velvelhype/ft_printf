@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-int xfinisher(char *bullet, struct flags flags)
+int xfinisher(char *bullet, struct s_fls s_fls)
 {
     char *canvas;
     char *copy_bullet;
@@ -8,44 +8,44 @@ int xfinisher(char *bullet, struct flags flags)
     int sizec;
     int target;
     int copy_bullet_size;
-    int countpre = flags.prec;    
+    int countpre = s_fls.prec;    
     int bulletsize = strlen(bullet);
 
-    if(flags.field <= 1 && flags.prec == 0 && bulletsize == 1 && *bullet  == '0')
+    if(s_fls.field <= 1 && s_fls.prec == 0 && bulletsize == 1 && *bullet  == '0')
     {
         write(1,NULL,1);
         return 0;
     }
 
-   if(flags.prec == 0 && *bullet == '0' && *(bullet + 1) == '\0')
+   if(s_fls.prec == 0 && *bullet == '0' && *(bullet + 1) == '\0')
         bullet[strlen(bullet) - 1] = ' ';
 
-    if(flags.prec > bulletsize)
+    if(s_fls.prec > bulletsize)
         {
 
-            if(!(copy_bullet = (char*)malloc(sizeof(char) * flags.prec + 1)))
+            if(!(copy_bullet = (char*)malloc(sizeof(char) * s_fls.prec + 1)))
                 return -1;
-            copy_bullet[flags.prec] = '\0';
+            copy_bullet[s_fls.prec] = '\0';
 
             while(countpre > 0)
             {
                 copy_bullet[countpre - 1] = '0';
                 countpre--;
             }
-            strcpy(&copy_bullet[flags.prec - bulletsize ] , bullet);
+            strcpy(&copy_bullet[s_fls.prec - bulletsize ] , bullet);
         }
     else
         copy_bullet = strdup(bullet);
-    if(flags.zero == 1 && flags.minus == 1)
+    if(s_fls.zero == 1 && s_fls.minus == 1)
         return -1;
 
-    if(flags.prec == -1)
+    if(s_fls.prec == -1)
         size = strlen(copy_bullet);
  
     copy_bullet_size = strlen(copy_bullet);
 
-    if(flags.field > copy_bullet_size || flags.prec < flags.field )
-        size = flags.field;
+    if(s_fls.field > copy_bullet_size || s_fls.prec < s_fls.field )
+        size = s_fls.field;
     else
         size = strlen(copy_bullet);
     
@@ -54,10 +54,10 @@ int xfinisher(char *bullet, struct flags flags)
     canvas[size] = '\0';
     sizec = size;
 
-    int second_precount = flags.prec;
+    int second_precount = s_fls.prec;
     while (size > 0)
     {  
-        if(flags.zero != -1 && second_precount)
+        if(s_fls.zero != -1 && second_precount)
         {
             canvas[size - 1] = '0';
             second_precount--;
@@ -68,21 +68,21 @@ int xfinisher(char *bullet, struct flags flags)
     }
     
     //if(flagman.prec > strlen(zbullet))
-    flags.prec = strlen(copy_bullet);
+    s_fls.prec = strlen(copy_bullet);
 
-    if(flags.minus != -1)
-        target =  flags.prec;
+    if(s_fls.minus != -1)
+        target =  s_fls.prec;
     else
         target  = sizec;
     // printf("target %d flagman.prec %d\n",target,flagman.prec);
-    if(flags.prec == -1)
-        flags.prec = strlen(bullet);
+    if(s_fls.prec == -1)
+        s_fls.prec = strlen(bullet);
    // printf("size %d target %d fp %d\n",size,target, flagman.prec);
-    while(flags.prec != 0)
+    while(s_fls.prec != 0)
     {
-        canvas[target - 1] = copy_bullet[flags.prec - 1];
+        canvas[target - 1] = copy_bullet[s_fls.prec - 1];
         target--;
-        flags.prec--;
+        s_fls.prec--;
     }
     // char mes[40] = "\nthis is what we write\nmin_ver:";
     // write(1,mes,40);

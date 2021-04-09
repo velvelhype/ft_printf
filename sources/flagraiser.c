@@ -9,7 +9,7 @@ int				typefinder(char s)
 	return (0);
 }
 
-char			*pre_field(char *str, struct flags *flag)
+char			*pre_field(char *str, struct s_fls *flag)
 {
 	while (*str == '-')
 	{
@@ -30,7 +30,7 @@ char			*pre_field(char *str, struct flags *flag)
 	return (str);
 }
 
-char			*field_make(struct flags *flag, char *str, int size, va_list ap)
+char			*field_make(struct s_fls *flag, char *str, int size, va_list ap)
 {
 	if ('0' <= *str && *str <= '9')
 	{
@@ -59,7 +59,7 @@ char			*field_make(struct flags *flag, char *str, int size, va_list ap)
 	return (str);
 }
 
-char			*prec_make(struct flags *flag, char *str, int size, va_list ap)
+char			*prec_make(struct s_fls *flag, char *str, int size, va_list ap)
 {
 	if (*str == '.')
 	{
@@ -88,7 +88,7 @@ char			*prec_make(struct flags *flag, char *str, int size, va_list ap)
 	return (str);
 }
 
-struct	flags	flagmaker(struct flags flag, char *str, va_list ap)
+struct	s_fls	flagmaker(struct s_fls flag, char *str, va_list ap)
 {
 	int		size;
 	char	*opoint;

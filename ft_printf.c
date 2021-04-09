@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int		cs_case(char *p, va_list ap, struct flags flag)
+int		cs_case(char *p, va_list ap, struct s_fls flag)
 {
 	int		size_string;
 	char	*conved_v;
@@ -27,7 +27,7 @@ int		cs_case(char *p, va_list ap, struct flags flag)
 	return (size_string);
 }
 
-int		diux(char *p, va_list ap, struct flags flag)
+int		diux(char *p, va_list ap, struct s_fls flag)
 {
 	char	*conved_v;
 	int		size_string;
@@ -55,7 +55,7 @@ int		diux(char *p, va_list ap, struct flags flag)
 	return (size_string);
 }
 
-int		p_percent_case(char *p, va_list ap, struct flags flag)
+int		p_percent_case(char *p, va_list ap, struct s_fls flag)
 {
 	char	*conved_v;
 	int		size_string;
@@ -76,7 +76,7 @@ int		p_percent_case(char *p, va_list ap, struct flags flag)
 	return (size_string);
 }
 
-int		conv(char *p, struct flags flag, va_list ap)
+int		conv(char *p, struct s_fls flag, va_list ap)
 {
 	int size_string;
 
@@ -94,7 +94,7 @@ int		ft_printf(char *fmt, ...)
 	va_list			ap;
 	char			*p;
 	int				size_string;
-	struct flags	flag;
+	struct s_fls	flag;
 
 	va_start(ap, fmt);
 	p = fmt;

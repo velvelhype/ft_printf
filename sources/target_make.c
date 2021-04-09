@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-int		target_make(struct flags flag, int s_s, int sizec)
+int		target_make(struct s_fls flag, int s_s, int sizec)
 {
 	int target;
 

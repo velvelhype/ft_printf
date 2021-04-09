@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-void			flag_init(struct flags *flag)
+void			flag_init(struct s_fls *flag)
 {
 	flag->minus = -1;
 	flag->zero = -1;
