@@ -30,17 +30,6 @@ char	*bg_fill(int size, struct flags flag, char *form)
 
 char	*string_to_form(int s_s, char *form, char *string, int target)
 {
-	// int target;
-
-	// if (flag.minus != -1 && flag.field > 0)
-	// {
-	// 	if (flag.prec != -1 && flag.prec < s_s)
-	// 		target = flag.prec;
-	// 	else
-	// 		target = s_s;
-	// }
-	// else
-	// 	target = sizec;
 	while (s_s > 0)
 	{
 		form[target - 1] = string[s_s - 1];
