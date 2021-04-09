@@ -15,6 +15,7 @@ SRCS =  ft_printf.c \
 		sources/target_make.c\
 		sources/prec_target_make.c\
 		sources/dfin_case_one.c\
+		sources/diu.c\
 
 		
 		
@@ -28,6 +29,7 @@ SURPL_O = 	sources/conversions.o\
 		sources/target_make.o\
 		sources/prec_target_make.o\
 		sources/dfin_case_one.o\
+		sources/diu.o\
 
 CC = gcc
 

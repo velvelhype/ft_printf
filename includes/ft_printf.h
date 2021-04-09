@@ -29,6 +29,7 @@ struct			s_fls
 	int	flagsize;
 };
 
+int				diu(char *p, struct s_fls flag, va_list ap);
 char			*ft_itoa(size_t d);
 char			*d_c_one(char *cp_str, struct s_fls fl, int s_size, char *str);
 char			*x_con(unsigned long d, int flag);
