@@ -25,7 +25,6 @@ int				p_t_make(struct s_fls *fl, char *cp_str, int size, char *str);
 int				write_chara(char *p, int size_string);
 int				conv(char *p, struct s_fls flag, va_list ap);
 int				dfinisher(char *bullet, struct s_fls s_fls);
-int				xfinisher(char *bullet, struct s_fls s_fls);
 int				sfinisher(struct s_fls s_fls, char *bullet);
 int				ft_printf(char *fmt, ...);
 int				p_case(char *conved_v, va_list ap, struct s_fls flag);

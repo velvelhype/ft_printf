@@ -38,9 +38,13 @@ int		diux(char *p, va_list ap, struct s_fls flag)
 			conved_v = ft_itoa(va_arg(ap, unsigned int));
 		else
 			conved_v = ft_itoa(va_arg(ap, int));
+		if(!conved_v)
+			return (-1);
 		if (flag.prec < 0)
 			flag.prec = -1;
 		size_string = dfinisher(conved_v, flag);
+		if(size_string < 0)
+			return (-1);
 		free(conved_v);
 	}
 	else
@@ -65,7 +69,8 @@ int		p_percent_case(char *p, va_list ap, struct s_fls flag)
 		size_string = p_case(conved_v, ap, flag);
 	if (*p == '%')
 	{
-		conved_v = (char*)malloc(sizeof(char) * 2);
+		if(!(conved_v == (char*)malloc(sizeof(char) * 2)))
+			return (-1);
 		if (flag.prec == 0)
 			flag.prec = 1;
 		*conved_v = '%';
@@ -86,7 +91,10 @@ int		conv(char *p, struct s_fls flag, va_list ap)
 		size_string = diux(p, ap, flag);
 	if (*p == 'p' || *p == '%')
 		size_string = p_percent_case(p, ap, flag);
-	return (size_string);
+	if (size_string == -1)
+		return (-1);
+	else
+		return (size_string);
 }
 
 int		ft_printf(char *fmt, ...)
@@ -95,6 +103,7 @@ int		ft_printf(char *fmt, ...)
 	char			*p;
 	int				size_string;
 	struct s_fls	flag;
+	int				conv_ret;
 
 	va_start(ap, fmt);
 	p = fmt;
@@ -106,12 +115,14 @@ int		ft_printf(char *fmt, ...)
 			p++;
 			flag = flagmaker(flag, p, ap);
 			p += flag.flagsize;
-			size_string += conv(p, flag, ap);
+			conv_ret = conv(p, flag, ap);
+			if(conv_ret == -1)
+				return (-1);
+			else
+				size_string += conv_ret;
 		}
 		else if (size_string++ != -1)
-		{
 			write_chara(p, size_string);
-		}
 		p++;
 	}
 	va_end(ap);

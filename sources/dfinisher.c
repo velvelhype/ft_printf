@@ -85,10 +85,10 @@ int		dfinisher(char *str, struct s_fls fl)
 	if (fl.prec == 0 && *str == '0' && *(str + 1) == '\0')
 		str[strlen(str) - 1] = ' ';
 	if (!(cp_str = copy_str_maker(fl, (int)strlen(str), str, cp_str)))
-		return (0);
+		return (-1);
 	size = size_make(fl, size, cp_str);
 	if (!(form = (char*)malloc(sizeof(char) * size + 1)))
-		return (0);
+		return (-1);
 	form[size] = '\0';
 	form = form_filler(size, form, fl);
 	d_end(fl, cp_str, p_t_make(&fl, cp_str, size, str), form);

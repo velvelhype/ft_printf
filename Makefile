@@ -9,7 +9,6 @@ SRCS =  ft_printf.c \
 		sources/dfinisher.c\
 		sources/flagraiser.c\
 		sources/sfinisher.c\
-		sources/xfinisher.c\
 		sources/write_chara.c\
 		sources/p_case.c\
 		sources/flag_init.c\
@@ -23,7 +22,6 @@ SURPL_O = 	sources/conversions.o\
 		sources/dfinisher.o\
 		sources/flagraiser.o\
 		sources/sfinisher.o\
-		sources/xfinisher.o\
 		sources/write_chara.o\
 		sources/p_case.o\
 		sources/flag_init.o\
