@@ -75,25 +75,6 @@ int		size_make(struct flags fl, int size, char *cp_str)
 	return (size);
 }
 
-// int prec_target_make(struct flags *fl, char *cp_str, int size, char *str)
-// {
-// 	int target;
-
-// 	target = 0;
-// 	fl->prec = strlen(cp_str);
-// 	if (fl->minus != -1)
-// 	{
-// 		target = fl->prec;
-// 		if (fl->zero == 2)
-// 			target++;
-// 	}
-// 	else
-// 		target = size;
-// 	if (fl->prec == -1)
-// 		fl->prec = strlen(str);
-// 	return (target);
-// }
-
 int		dfinisher(char *str, struct flags fl)
 {
 	char	*form;
