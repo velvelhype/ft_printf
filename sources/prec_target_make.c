@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-int	prec_target_make(struct s_fls *fl, char *cp_str, int size, char *str)
+int	p_t_make(struct s_fls *fl, char *cp_str, int size, char *str)
 {
 	int target;
 

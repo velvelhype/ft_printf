@@ -6,7 +6,7 @@ char	*copy_str_maker(struct s_fls fl, int s_size, char *str, char *cp_str)
 
 	i = fl.prec;
 	if (fl.prec >= s_size && *str == '-')
-		cp_str = dfin_case_one(cp_str, fl, s_size, str);
+		cp_str = d_c_one(cp_str, fl, s_size, str);
 	else if (fl.prec > s_size)
 	{
 		if (!(cp_str = (char*)malloc(sizeof(char) * fl.prec + 1)))
@@ -91,6 +91,6 @@ int		dfinisher(char *str, struct s_fls fl)
 		return (0);
 	form[size] = '\0';
 	form = form_filler(size, form, fl);
-	d_end(fl, cp_str, prec_target_make(&fl, cp_str, size, str), form);
+	d_end(fl, cp_str, p_t_make(&fl, cp_str, size, str), form);
 	return (size);
 }

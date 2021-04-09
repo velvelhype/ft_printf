@@ -2,7 +2,6 @@
 #define FT_PRINTF_H
 
 #include "../libft/libft.h"
-// #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
@@ -19,10 +18,10 @@ struct s_fls
 } ;
 
 char			*ft_itoa(size_t d);
-char			*dfin_case_one(char *cp_str, struct s_fls fl, int s_size, char *str);
+char			*d_c_one(char *cp_str, struct s_fls fl, int s_size, char *str);
 char			*x_con(unsigned long d, int flag);
 void			flag_init(struct s_fls *flag);
-int				prec_target_make(struct s_fls *fl, char *cp_str, int size, char *str);
+int				p_t_make(struct s_fls *fl, char *cp_str, int size, char *str);
 int				write_chara(char *p, int size_string);
 int				conv(char *p, struct s_fls flag, va_list ap);
 int				dfinisher(char *bullet, struct s_fls s_fls);
