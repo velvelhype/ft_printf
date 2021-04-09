@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-int prec_target_make(struct flags *fl, char *cp_str, int size, char *str)
+int	prec_target_make(struct flags *fl, char *cp_str, int size, char *str)
 {
 	int target;
 

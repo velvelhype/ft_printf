@@ -13,6 +13,5 @@ int		target_make(struct flags flag, int s_s, int sizec)
 	}
 	else
 		target = sizec;
-
 	return (target);
 }
