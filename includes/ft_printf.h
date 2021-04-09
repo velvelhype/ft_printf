@@ -7,7 +7,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-struct s_fls
+struct			s_fls
 {
 	int	minus;
 	int	zero;
