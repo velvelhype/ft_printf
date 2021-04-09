@@ -9,13 +9,25 @@ SRCS =  ft_printf.c \
 		sources/dfinisher.c\
 		sources/flagraiser.c\
 		sources/sfinisher.c\
-		sources/xfinisher.c\
+		sources/write_chara.c\
+		sources/p_case.c\
+		sources/flag_init.c\
+		sources/target_make.c\
+		sources/prec_target_make.c\
+		sources/dfin_case_one.c\
+
+		
 		
 SURPL_O = 	sources/conversions.o\
 		sources/dfinisher.o\
 		sources/flagraiser.o\
 		sources/sfinisher.o\
-		sources/xfinisher.o\
+		sources/write_chara.o\
+		sources/p_case.o\
+		sources/flag_init.o\
+		sources/target_make.o\
+		sources/prec_target_make.o\
+		sources/dfin_case_one.o\
 
 CC = gcc
 
@@ -26,7 +38,7 @@ INCLUDES = -I./includes
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)
-	$(MAKE) bonus -C ./libft
+	$(MAKE) -C  ./libft
 	cp libft/libft.a $(NAME)
 	$(CC) $(FLAGS) $(INCLUDES) $(SRCS)
 	ar -rcs $(NAME) $(OBJS)
@@ -37,6 +49,7 @@ clean :
 	$(MAKE) clean -C ./libft
 	rm -rf $(SURPL_O) 
 	rm -rf $(OBJS)
+	rm -rf *.o
 
 fclean : clean
 	$(MAKE) fclean -C ./libft

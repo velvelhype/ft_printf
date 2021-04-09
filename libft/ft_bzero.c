@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   bzeronorm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 17:10:02 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/14 17:38:46 by rchallie         ###   ########.fr       */
+/*   Created: 2020/11/25 01:32:45 by kamori            #+#    #+#             */
+/*   Updated: 2020/11/26 09:11:55 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *b, size_t len)
 {
-	size_t			i;
-	unsigned char	*suc;
-
-	i = 0;
-	suc = (unsigned char *)s;
-	while (i < n)
-	{
-		suc[i] = 0;
-		i++;
-	}
-	s = suc;
+	ft_memset(b, '\0', len);
 }

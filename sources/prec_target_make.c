@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*   prec_target_make.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 18:29:37 by kamori            #+#    #+#             */
-/*   Updated: 2020/11/25 01:26:36 by kamori           ###   ########.fr       */
+/*   Created: 2021/04/10 05:16:08 by kamori            #+#    #+#             */
+/*   Updated: 2021/04/10 05:16:10 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_printf.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+int	p_t_make(struct s_fls *fl, char *cp_str, int size, char *str)
 {
-	size_t			i;
-	unsigned char	*pdst;
-	unsigned char	*psrc;
+	int target;
 
-	psrc = (unsigned char*)src;
-	pdst = (unsigned char*)dst;
-	i = 0;
-	while (i < n)
+	target = 0;
+	fl->prec = strlen(cp_str);
+	if (fl->minus != -1)
 	{
-		pdst[i] = psrc[i];
-		if (pdst[i] == (unsigned char)c)
-			return ((void*)(dst + i + 1));
-		++i;
+		target = fl->prec;
+		if (fl->zero == 2)
+			target++;
 	}
-	return (NULL);
+	else
+		target = size;
+	if (fl->prec == -1)
+		fl->prec = strlen(str);
+	return (target);
 }

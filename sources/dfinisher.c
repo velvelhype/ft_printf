@@ -1,120 +1,108 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dfinisher.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/10 05:16:32 by kamori            #+#    #+#             */
+/*   Updated: 2021/04/10 05:16:34 by kamori           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
-int dfinisher(char *string, struct flags flags)
+char	*copy_str_maker(struct s_fls fl, int s_size, char *str, char *cp_str)
 {
-    char *canvas;
-    char *copy_string;
-    int size;
-    int sizec;
-    int target;
-    int copy_string_size;
-    int countpre = flags.prec;
-    int stringsize = strlen(string);
-    int potison_reverse = -1;
+	int i;
 
-    if(flags.prec < 0)
-        flags.prec = -1;
+	i = fl.prec;
+	if (fl.prec >= s_size && *str == '-')
+		cp_str = d_c_one(cp_str, fl, s_size, str);
+	else if (fl.prec > s_size)
+	{
+		if (!(cp_str = (char*)malloc(sizeof(char) * fl.prec + 1)))
+			return (NULL);
+		cp_str[fl.prec] = '\0';
+		while (--i)
+			cp_str[i - 1] = '0';
+		strcpy(&cp_str[fl.prec - s_size], str);
+	}
+	else
+		cp_str = strdup(str);
+	return (cp_str);
+}
 
-        if(flags.zero == 1 && flags.field > stringsize && *string == '-' && flags.prec == -1)
-    {
-        potison_reverse = 1;
-        *string = '0';
-    }
+char	*form_filler(int size, char *form, struct s_fls fl)
+{
+	int second_precount;
 
-    if(flags.field <= 1 && flags.prec == 0 && stringsize == 1 && *string  == '0')
-        return 0;
+	second_precount = fl.prec;
+	while (size > 0)
+	{
+		if (fl.zero != -1 && second_precount)
+		{
+			form[size - 1] = '0';
+			second_precount--;
+		}
+		else
+			form[size - 1] = ' ';
+		size--;
+	}
+	return (form);
+}
 
-    if(flags.prec == 0 && *string == '0' && *(string + 1) == '\0')
-        string[strlen(string) - 1] = ' ';
+void	d_end(struct s_fls fl, char *cp_str, int target, char *form)
+{
+	while (fl.prec != 0)
+	{
+		form[target - 1] = cp_str[fl.prec - 1];
+		target--;
+		fl.prec--;
+	}
+	if (fl.zero == 2)
+		*form = '-';
+	write(1, form, strlen(form));
+	free(form);
+	free(cp_str);
+}
 
-    if(flags.prec >= stringsize && *string == '-')
-    {
-        if(!(copy_string = (char*)malloc(sizeof(char) * flags.prec + 2)))
-            return -1;
-        copy_string[flags.prec + 1] = '\0';
-        countpre++;
-            while(countpre > 0)
-            {
-                copy_string[countpre - 1] = '0';
-                countpre--; 
-            }
-        strcpy(&copy_string[flags.prec - stringsize + 2] , string + 1);
-        *copy_string = '-';
-    }
-    else if(flags.prec > stringsize)
-        {
+int		size_make(struct s_fls fl, int size, char *cp_str)
+{
+	if (fl.prec == -1)
+		size = strlen(cp_str);
+	if (fl.prec < fl.field && fl.field > (int)strlen(cp_str))
+		size = fl.field;
+	else
+		size = strlen(cp_str);
+	return (size);
+}
 
-            if(!(copy_string = (char*)malloc(sizeof(char) * flags.prec + 1)))
-                return -1;
-            copy_string[flags.prec] = '\0';
-            while(countpre > 0)
-            {
-                copy_string[countpre - 1] = '0';
-                countpre--;
-            }
-            strcpy(&copy_string[flags.prec - stringsize ] , string);
-        }
-    else
-        copy_string = strdup(string);
+int		dfinisher(char *str, struct s_fls fl)
+{
+	char	*form;
+	char	*cp_str;
+	int		size;
 
-    if(flags.prec == -1)
-        size = strlen(copy_string);
-
-    copy_string_size = strlen(copy_string);
-
-    if( flags.prec < flags.field && flags.field > copy_string_size)
-        size = flags.field;
-    else
-        size = strlen(copy_string);
-
-    if(!(canvas = (char*)malloc(sizeof(char)* size + 1)))
-        return -1;
-    canvas[size] = '\0';
-    sizec = size;
-
-    int second_precount = flags.prec;
-
-    while (size > 0)
-    {  
-        if(flags.zero == 1 && second_precount)
-        {
-            canvas[size - 1] = '0';
-            second_precount--;
-        }
-        else
-            canvas[size - 1] = ' ';
-        size--;
-    }
-
-    flags.prec = strlen(copy_string);
-
-    if(flags.minus != -1)
-    {
-        target =  flags.prec;
-        if(potison_reverse == 1)
-        target++;
-    }
-    else
-        target  = sizec;
-
-    if(flags.prec == -1)
-        flags.prec = strlen(string);
-
-
-    if(potison_reverse == 1)
-        *canvas = '-';
-    while(flags.prec != 0)
-    {
-        canvas[target - 1] = copy_string[flags.prec - 1];
-        target--;
-        flags.prec--;
-    }
-    if(potison_reverse == 1)
-        *canvas = '-';
-
-    write(1,canvas,strlen(canvas));
-    free(canvas);
-    free(copy_string);
-
-    return (sizec);
+	cp_str = NULL;
+	size = 0;
+	if (fl.zero == 1 && fl.field > (int)strlen(str) &&
+	*str == '-' && fl.prec == -1)
+	{
+		fl.zero = 2;
+		*str = '0';
+	}
+	if (fl.field <= 1 && fl.prec == 0 && (int)strlen(str) == 1 && *str == '0')
+		return (0);
+	if (fl.prec == 0 && *str == '0' && *(str + 1) == '\0')
+		str[strlen(str) - 1] = ' ';
+	if (!(cp_str = copy_str_maker(fl, (int)strlen(str), str, cp_str)))
+		return (-1);
+	size = size_make(fl, size, cp_str);
+	if (!(form = (char*)malloc(sizeof(char) * size + 1)))
+		return (-1);
+	form[size] = '\0';
+	form = form_filler(size, form, fl);
+	d_end(fl, cp_str, p_t_make(&fl, cp_str, size, str), form);
+	return (size);
 }

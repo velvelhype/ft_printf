@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   memsetnorm.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 16:57:14 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/14 16:57:50 by rchallie         ###   ########.fr       */
+/*   Created: 2020/11/25 01:36:49 by kamori            #+#    #+#             */
+/*   Updated: 2020/11/26 10:51:08 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	size_t			i;
-	unsigned char	*buc;
+	int				i;
+	unsigned char	*censored;
 
+	censored = (unsigned char*)b;
 	i = 0;
-	buc = (unsigned char *)b;
-	while (i < len)
+	while (len > 0)
 	{
-		buc[i] = c;
-		i++;
+		*censored = (unsigned char)c;
+		censored++;
+		len--;
 	}
-	return (b = buc);
+	return (b);
 }

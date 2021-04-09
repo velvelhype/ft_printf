@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   flag_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/17 13:38:57 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/19 14:41:59 by rchallie         ###   ########.fr       */
+/*   Created: 2021/04/10 05:16:18 by kamori            #+#    #+#             */
+/*   Updated: 2021/04/10 05:16:20 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_printf.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void			flag_init(struct s_fls *flag)
 {
-	t_list *t;
-
-	if (*alst)
-	{
-		t = ft_lstlast(*alst);
-		t->next = &*new;
-	}
-	else
-		*alst = new;
+	flag->minus = -1;
+	flag->zero = -1;
+	flag->field = -1;
+	flag->prec = -1;
+	flag->type = -1;
+	flag->flagsize = -1;
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 10:56:21 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/21 16:24:19 by rchallie         ###   ########.fr       */
+/*   Created: 2020/11/12 04:02:54 by kamori            #+#    #+#             */
+/*   Updated: 2020/11/25 00:25:30 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -18,6 +18,6 @@ void	ft_putstr_fd(char *s, int fd)
 
 	i = 0;
 	if (s)
-		while (s[i] != '\0')
-			write(fd, &s[i++], 1);
+		while (s[i])
+			ft_putchar_fd(s[i++], fd);
 }

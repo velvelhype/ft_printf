@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/14 18:17:11 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/21 16:16:43 by rchallie         ###   ########.fr       */
+/*   Created: 2020/11/12 04:02:54 by kamori            #+#    #+#             */
+/*   Updated: 2020/11/25 01:09:20 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	if (!s)
-		return ;
-	while (*s)
-		write(fd, s++, 1);
-	write(fd, "\n", 1);
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 16:13:35 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/08 16:42:01 by rchallie         ###   ########.fr       */
+/*   Created: 2020/09/20 19:53:40 by kamori            #+#    #+#             */
+/*   Updated: 2020/11/25 00:16:15 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,22 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	i;
-	size_t	c;
-	size_t	n_len;
-	char	*hay;
-	char	*need;
+	size_t	s;
+	size_t	f;
 
-	i = 0;
-	hay = (char *)haystack;
-	need = (char *)needle;
-	n_len = ft_strlen(needle);
-	if (n_len == 0 || haystack == needle)
-		return (hay);
-	while (hay[i] != '\0' && i < len)
+	if (ft_strlen(needle) == 0)
+		return ((char *)haystack);
+	s = 0;
+	while (haystack[s] != '\0' && s < len)
 	{
-		c = 0;
-		while (hay[i + c] != '\0' && needle[c] != '\0'
-				&& hay[i + c] == needle[c] && i + c < len)
-			c++;
-		if (c == n_len)
-			return (hay + i);
-		i++;
+		f = 0;
+		while (needle[f] == haystack[s + f] && haystack[s + f] && len > (s + f))
+		{
+			f++;
+			if (needle[f] == '\0')
+				return ((char*)&haystack[s]);
+		}
+		s++;
 	}
-	return (0);
+	return (NULL);
 }

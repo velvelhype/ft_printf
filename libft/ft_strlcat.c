@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 15:04:56 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/18 15:16:49 by rchallie         ###   ########.fr       */
+/*   Created: 2020/11/22 06:25:39 by kamori            #+#    #+#             */
+/*   Updated: 2020/11/28 18:00:54 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,19 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t i;
-	size_t j;
-	size_t src_len;
-	size_t dst_len;
+	size_t elen;
+	size_t ori;
 
-	j = 0;
-	dst_len = ft_strlen(dst);
-	src_len = ft_strlen(src);
-	i = dst_len;
-	if (dstsize == 0)
-		return (src_len);
-	if (dstsize < dst_len)
-		return (src_len + dstsize);
-	else
+	elen = 0;
+	while (dst[elen] && elen < dstsize)
+		elen++;
+	ori = elen;
+	while (src[elen - ori] && elen + 1 < dstsize)
 	{
-		while (src[j] && (dst_len + j) < dstsize)
-			dst[i++] = src[j++];
-		if ((dst_len + j) == dstsize && dst_len < dstsize)
-			dst[--i] = '\0';
-		else
-			dst[i] = '\0';
-		return (src_len + dst_len);
+		dst[elen] = src[elen - ori];
+		elen++;
 	}
+	if (ori < dstsize)
+		dst[elen] = '\0';
+	return (ori + ft_strlen(src));
 }

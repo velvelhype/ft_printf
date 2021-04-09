@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   write_chara.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/17 12:09:04 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/19 14:42:04 by rchallie         ###   ########.fr       */
+/*   Created: 2021/04/10 05:15:29 by kamori            #+#    #+#             */
+/*   Updated: 2021/04/10 05:15:32 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_printf.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+int		write_chara(char *p, int size_string)
 {
-	if (!alst || !new)
-		return ;
-	new->next = *alst;
-	*alst = new;
+	write(1, p, 1);
+	return (size_string);
 }

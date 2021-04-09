@@ -3,117 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/11 10:51:19 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/23 10:19:55 by rchallie         ###   ########.fr       */
+/*   Created: 2020/11/29 07:30:07 by kamori            #+#    #+#             */
+/*   Updated: 2020/11/29 07:33:14 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_hm(char const *s, char c)
+int		flvlen(char const *s, char c)
 {
-	size_t	nbr;
-	int		i;
+	int	len;
 
-	nbr = 0;
-	i = 0;
-	while (s[i])
+	len = 0;
+	while (*s)
 	{
-		while (s[i] == c)
-			i++;
-		if (i > 0 && s[i] && s[i - 1] == c)
-			nbr++;
-		if (s[i])
-			i++;
-	}
-	if (nbr == 0 && s[i - 1] == c)
-		return (0);
-	if (s[0] != c)
-		nbr++;
-	return (nbr);
-}
-
-static char		**ft_mal(char **strs, char const *s, char c)
-{
-	size_t	count;
-	int		i;
-	int		h;
-
-	count = 0;
-	i = 0;
-	h = 0;
-	while (s[h])
-	{
-		if (s[h] != c)
-			count++;
-		else if (h > 0 && s[h - 1] != c)
+		if (*s == c)
 		{
-			strs[i] = malloc(sizeof(char) * (count + 1));
-			if (!strs[i])
-				return (0);
-			count = 0;
-			i++;
+			while (*s == c)
+				s++;
 		}
-		if (s[h + 1] == '\0' && s[h] != c)
-			if (!(strs[i] = malloc(sizeof(char) * count + 1)))
-				return (0);
-		h++;
+		if (*s)
+			len++;
+		if (*s && *s != c)
+		{
+			while (*s && *s != c)
+				s++;
+		}
 	}
-	return (strs);
+	return (len);
 }
 
-static char		**ft_cpy(char **strs, char const *s, char c)
+int		sizeslv(char const *s, char c)
 {
-	int i;
-	int j;
-	int h;
+	int	i;
 
 	i = 0;
-	j = 0;
-	h = 0;
-	while (s[h])
-	{
-		if (s[h] != c)
-			strs[i][j++] = s[h];
-		else if (h > 0 && s[h - 1] != c)
-			if (h != 0)
-			{
-				strs[i][j] = '\0';
-				j = 0;
-				i++;
-			}
-		if (s[h + 1] == '\0' && s[h] != c)
-			strs[i][j] = '\0';
-		h++;
-	}
-	return (strs);
+	while (s[i] && s[i] != c)
+		i++;
+	return (i);
 }
 
-char			**ft_split(char const *s, char c)
+char	**free_lvs(char **lvs, int i)
 {
-	char	**rtn;
-	int		nbr_w;
+	int	j;
 
-	if (!s || !*s)
+	j = 0;
+	while (j < i)
 	{
-		if (!(rtn = malloc(sizeof(char *) * 1)))
-			return (NULL);
-		*rtn = (void *)0;
-		return (rtn);
+		free(lvs[i]);
+		i++;
 	}
-	nbr_w = ft_hm(s, c);
-	rtn = malloc(sizeof(char *) * (nbr_w + 1));
-	if (!rtn)
-		return (0);
-	if (ft_mal(rtn, s, c) != 0)
-		ft_cpy(rtn, s, c);
-	else
+	free(lvs);
+	return (NULL);
+}
+
+char	**slvfiller(char const *s, char **lvs, char c)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (*s)
 	{
-		free(rtn);
+		while (*s == c)
+			s++;
+		if (*s)
+		{
+			if (!(lvs[j] = (char*)malloc(sizeof(char) * (sizeslv(s, c) + 1))))
+				return (free_lvs(lvs, j));
+			ft_strlcpy(lvs[j], s, (sizeslv(s, c) + 1));
+			i++;
+			j++;
+		}
+		while (*s && *s != c)
+			s++;
+	}
+	lvs[j] = NULL;
+	return (lvs);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**dst;
+	int		len;
+
+	if (s == NULL)
 		return (NULL);
-	}
-	rtn[nbr_w] = (void *)0;
-	return (rtn);
+	len = flvlen(s, c);
+	if (!(dst = (char **)malloc(sizeof(char *) * len + 1)))
+		return (NULL);
+	return (slvfiller(s, dst, c));
 }

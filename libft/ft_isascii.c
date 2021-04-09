@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 14:39:17 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/07 15:00:27 by rchallie         ###   ########.fr       */
+/*   Created: 2020/11/13 11:42:11 by kamori            #+#    #+#             */
+/*   Updated: 2020/11/26 08:57:51 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isascii(int c)
+#include "libft.h"
+
+int	ft_isascii(int c)
 {
-	return (c >= 0 && c < 128);
+	if (c >= 0 && c <= 127)
+		return (1);
+	else
+		return (0);
 }
