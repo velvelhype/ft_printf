@@ -28,19 +28,19 @@ char	*bg_fill(int size, struct flags flag, char *form)
 	return (form);
 }
 
-char	*string_to_form(struct flags flag, int s_s, char *form, char *string, int sizec)
+char	*string_to_form(int s_s, char *form, char *string, int target)
 {
-	int target;
+	// int target;
 
-	if (flag.minus != -1 && flag.field > 0)
-	{
-		if (flag.prec != -1 && flag.prec < s_s)
-			target = flag.prec;
-		else
-			target = s_s;
-	}
-	else
-		target = sizec;
+	// if (flag.minus != -1 && flag.field > 0)
+	// {
+	// 	if (flag.prec != -1 && flag.prec < s_s)
+	// 		target = flag.prec;
+	// 	else
+	// 		target = s_s;
+	// }
+	// else
+	// 	target = sizec;
 	while (s_s > 0)
 	{
 		form[target - 1] = string[s_s - 1];
@@ -65,6 +65,23 @@ int		s_end(char *form, struct flags flag, char *string)
 	write(1, form, numb);
 	free(form);
 	return (numb);
+}
+
+int		target_make(struct flags flag, int s_s, int sizec)
+{
+	int target;
+
+	if (flag.minus != -1 && flag.field > 0)
+	{
+		if (flag.prec != -1 && flag.prec < s_s)
+			target = flag.prec;
+		else
+			target = s_s;
+	}
+	else
+		target = sizec;
+
+	return (target);
 }
 
 int		sfinisher(struct flags flag, char *string)
@@ -92,6 +109,6 @@ int		sfinisher(struct flags flag, char *string)
 	form[size] = '\0';
 	form = bg_fill(size, flag, form);
 	s_s = s_s_make(flag, s_s);
-	string_to_form(flag, s_s, form, string, size);
+	string_to_form(s_s, form, string, target_make(flag, s_s, size));
 	return (s_end(form, flag, string));
 }
