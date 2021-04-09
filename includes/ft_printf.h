@@ -1,11 +1,11 @@
-#ifndef FT_PRINTF_H
-#define FT_PRINTF_H
+#ifndef			FT_PRINTF_H
+#define			FT_PRINTF_H
 
-#include "../libft/libft.h"
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdarg.h>
+#include		"../libft/libft.h"
+#include		<unistd.h>
+#include		<string.h>
+#include		<stdlib.h>
+#include		<stdarg.h>
 
 struct s_fls
 {
@@ -15,7 +15,7 @@ struct s_fls
 	int prec;
 	int type;
 	int flagsize;
-} ;
+};
 
 char			*ft_itoa(size_t d);
 char			*d_c_one(char *cp_str, struct s_fls fl, int s_size, char *str);
