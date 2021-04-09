@@ -18,6 +18,8 @@ struct flags
     int flagsize;
 };
 
+int prec_target_make(struct flags *fl, char *cp_str, int size, char *str);
+int		target_make(struct flags flag, int s_s, int sizec);
 void    flag_init(struct flags *flag);
 int write_chara(char *p, int size_string);
 int	conv(char *p, struct flags flag, va_list ap);

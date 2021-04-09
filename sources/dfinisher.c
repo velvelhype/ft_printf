@@ -49,22 +49,8 @@ char	*form_filler(int size, char *form, struct flags fl)
 	return (form);
 }
 
-void	d_end(struct flags fl, char *cp_str, char *str, char *form, int size)
+void	d_end(struct flags fl, char *cp_str, int target, char *form)
 {
-	int target;
-
-	target = 0;
-	fl.prec = strlen(cp_str);
-	if (fl.minus != -1)
-	{
-		target = fl.prec;
-		if (fl.zero == 2)
-			target++;
-	}
-	else
-		target = size;
-	if (fl.prec == -1)
-		fl.prec = strlen(str);
 	while (fl.prec != 0)
 	{
 		form[target - 1] = cp_str[fl.prec - 1];
@@ -88,6 +74,25 @@ int		size_make(struct flags fl, int size, char *cp_str)
 		size = strlen(cp_str);
 	return (size);
 }
+
+// int prec_target_make(struct flags *fl, char *cp_str, int size, char *str)
+// {
+// 	int target;
+
+// 	target = 0;
+// 	fl->prec = strlen(cp_str);
+// 	if (fl->minus != -1)
+// 	{
+// 		target = fl->prec;
+// 		if (fl->zero == 2)
+// 			target++;
+// 	}
+// 	else
+// 		target = size;
+// 	if (fl->prec == -1)
+// 		fl->prec = strlen(str);
+// 	return (target);
+// }
 
 int		dfinisher(char *str, struct flags fl)
 {
@@ -114,6 +119,6 @@ int		dfinisher(char *str, struct flags fl)
 		return (0);
 	form[size] = '\0';
 	form = form_filler(size, form, fl);
-	d_end(fl, cp_str, str, form, size);
+	d_end(fl, cp_str, prec_target_make(&fl, cp_str, size, str), form);
 	return (size);
 }

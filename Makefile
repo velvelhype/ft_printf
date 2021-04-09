@@ -13,6 +13,9 @@ SRCS =  ft_printf.c \
 		sources/write_chara.c\
 		sources/p_case.c\
 		sources/flag_init.c\
+		sources/target_make.c\
+		sources/prec_target_make.c\
+
 		
 		
 SURPL_O = 	sources/conversions.o\
@@ -23,6 +26,8 @@ SURPL_O = 	sources/conversions.o\
 		sources/write_chara.o\
 		sources/p_case.o\
 		sources/flag_init.o\
+		sources/target_make.o\
+		sources/prec_target_make.o\
 
 CC = gcc
 
