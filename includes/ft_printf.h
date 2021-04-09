@@ -7,14 +7,14 @@
 #include		<stdlib.h>
 #include		<stdarg.h>
 
-struct s_fls
+struct	s_fls
 {
-	int minus;
-	int zero;
-	int field;
-	int prec;
-	int type;
-	int flagsize;
+	int	minus;
+	int	zero;
+	int	field;
+	int	prec;
+	int	type;
+	int	flagsize;
 };
 
 char			*ft_itoa(size_t d);
