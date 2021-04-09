@@ -18,6 +18,7 @@ struct flags
     int flagsize;
 };
 
+char	*dfin_case_one(char *cp_str, struct flags fl, int s_size, char *str);
 int prec_target_make(struct flags *fl, char *cp_str, int size, char *str);
 int		target_make(struct flags flag, int s_s, int sizec);
 void    flag_init(struct flags *flag);
