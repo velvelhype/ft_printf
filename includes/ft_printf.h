@@ -6,7 +6,7 @@
 /*   By: kamori <kamori@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 05:05:00 by kamori            #+#    #+#             */
-/*   Updated: 2021/04/10 05:05:03 by kamori           ###   ########.fr       */
+/*   Updated: 2021/04/10 09:37:05 by kamori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ struct			s_fls
 	int	flagsize;
 };
 
+int				ft_printf(char *fmt, ...);
 int				diu(char *p, struct s_fls flag, va_list ap);
 char			*ft_itoa(size_t d);
 char			*d_c_one(char *cp_str, struct s_fls fl, int s_size, char *str);
