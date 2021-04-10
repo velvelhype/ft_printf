@@ -92,7 +92,7 @@ int		dfinisher(char *str, struct s_fls fl)
 		fl.zero = 2;
 		*str = '0';
 	}
-	if (fl.field <= 1 && fl.prec == 0 && (int)ft_strlen(str) == 1 && *str == '0')
+	if (fl.field <= 1 && !fl.prec && (int)ft_strlen(str) == 1 && *str == '0')
 		return (0);
 	if (fl.prec == 0 && *str == '0' && *(str + 1) == '\0')
 		str[ft_strlen(str) - 1] = ' ';
