@@ -17,7 +17,7 @@ int	p_t_make(struct s_fls *fl, char *cp_str, int size, char *str)
 	int target;
 
 	target = 0;
-	fl->prec = strlen(cp_str);
+	fl->prec = ft_strlen(cp_str);
 	if (fl->minus != -1)
 	{
 		target = fl->prec;
@@ -27,6 +27,6 @@ int	p_t_make(struct s_fls *fl, char *cp_str, int size, char *str)
 	else
 		target = size;
 	if (fl->prec == -1)
-		fl->prec = strlen(str);
+		fl->prec = ft_strlen(str);
 	return (target);
 }

@@ -23,7 +23,7 @@ char	*d_c_one(char *cp_str, struct s_fls fl, int s_size, char *str)
 	i++;
 	while (--i)
 		cp_str[i - 1] = '0';
-	strcpy(&cp_str[fl.prec - s_size + 2], str + 1);
+	ft_strlcpy(&cp_str[fl.prec - s_size + 2], str + 1, (fl.prec + 2));
 	*cp_str = '-';
 	return (cp_str);
 }

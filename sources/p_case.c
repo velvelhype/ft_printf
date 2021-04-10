@@ -21,7 +21,7 @@ int		p_case(char *conved_v, va_list ap, struct s_fls flag)
 	conved_v = x_con(va_arg(ap, unsigned long), 'x');
 	if (*conved_v == '0' && *(conved_v + 1) == '\0' && flag.prec == 0)
 	{
-		if (!(unified_string = strdup(loc)))
+		if (!(unified_string = ft_strdup(loc)))
 			return (-1);
 	}
 	else
