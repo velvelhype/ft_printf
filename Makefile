@@ -4,7 +4,7 @@ N_TEMP = temp.a
 
 NAME = libftprintf.a
 
-SRCS =  ft_printf.c \
+SRCS =  ft_printf.c\
 		sources/conversions.c\
 		sources/dfinisher.c\
 		sources/flagraiser.c\
@@ -19,7 +19,8 @@ SRCS =  ft_printf.c \
 
 		
 		
-SURPL_O = 	sources/conversions.o\
+SURPL_O = 	ft_printf.o\
+		sources/conversions.o\
 		sources/dfinisher.o\
 		sources/flagraiser.o\
 		sources/sfinisher.o\
@@ -30,6 +31,19 @@ SURPL_O = 	sources/conversions.o\
 		sources/prec_target_make.o\
 		sources/dfin_case_one.o\
 		sources/diu.o\
+
+UP_O	= 	ft_printf.o\
+		conversions.o\
+		dfinisher.o\
+		flagraiser.o\
+		sfinisher.o\
+		write_chara.o\
+		p_case.o\
+		flag_init.o\
+		target_make.o\
+		prec_target_make.o\
+		dfin_case_one.o\
+		diu.o\
 
 CC = gcc
 
@@ -49,12 +63,14 @@ all : $(NAME)
 
 clean :
 	$(MAKE) clean -C ./libft
-	rm -rf $(SURPL_O) 
 	rm -rf $(OBJS)
-	rm -rf *.o
+	rm -rf $(SURPL_O)
+	rm -rf $(UP_O)
+	#rm -rf *.o
 
 fclean : clean
 	$(MAKE) fclean -C ./libft
 	rm -rf $(NAME)
 
 re : fclean all
+bonus:
