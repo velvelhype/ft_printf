@@ -92,10 +92,8 @@ int		dfinisher(char *str, struct s_fls fl)
 		fl.zero = 2;
 		*str = '0';
 	}
-	if (fl.field <= 1 && !fl.prec && (int)ft_strlen(str) == 1 && *str == '0')
-		return (0);
 	if (fl.prec == 0 && *str == '0' && *(str + 1) == '\0')
-		str[ft_strlen(str) - 1] = ' ';
+		str[ft_strlen(str) - 1] = '\0';
 	if (!(cp_str = copy_str_maker(fl, (int)ft_strlen(str), str, cp_str)))
 		return (-1);
 	size = size_make(fl, size, cp_str);

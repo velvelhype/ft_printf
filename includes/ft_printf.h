@@ -28,7 +28,7 @@ struct			s_fls
 	int	flagsize;
 };
 
-int				ft_printf(char *fmt, ...);
+int				ft_printf(const char *fmt, ...);
 int				diu(char *p, struct s_fls flag, va_list ap);
 char			*ft_itoa(size_t d);
 char			*d_c_one(char *cp_str, struct s_fls fl, int s_size, char *str);
@@ -40,7 +40,6 @@ int				conv(char *p, struct s_fls flag, va_list ap);
 int				dfinisher(char *bullet, struct s_fls s_fls);
 int				xfinisher(char *bullet, struct s_fls s_fls);
 int				sfinisher(struct s_fls s_fls, char *bullet);
-int				ft_printf(char *fmt, ...);
 int				p_case(char *conved_v, va_list ap, struct s_fls flag);
 int				target_make(struct s_fls flag, int s_s, int sizec);
 struct s_fls	flagmaker(struct s_fls s_fls, char *fmt, va_list ap);

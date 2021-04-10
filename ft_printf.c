@@ -96,28 +96,28 @@ int		conv(char *p, struct s_fls flag, va_list ap)
 	return (size_string);
 }
 
-int		ft_printf(char *fmt, ...)
+int		ft_printf(const char *fmt, ...)
 {
 	va_list			ap;
 	int				size_string;
 	struct s_fls	flag;
 	int				conv_ret;
 
-	va_start(ap, fmt);
+	va_start(ap, (char*)fmt);
 	size_string = 0;
-	while (*fmt != '\0')
+	while (*(char*)fmt != '\0')
 	{
 		if (*fmt == '%')
 		{
 			fmt++;
-			flag = flagmaker(flag, fmt, ap);
+			flag = flagmaker(flag, (char*)fmt, ap);
 			fmt += flag.flagsize;
-			if ((conv_ret = conv(fmt, flag, ap)) < 0)
+			if ((conv_ret = conv((char*)fmt, flag, ap)) < 0)
 				return (-1);
 			size_string += conv_ret;
 		}
 		else if (size_string++ != -1)
-			write_chara(fmt, size_string);
+			write_chara((char*)fmt, size_string);
 		fmt++;
 	}
 	va_end(ap);
